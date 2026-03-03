@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useLogin } from "@/hooks/use-auth";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -9,11 +9,15 @@ import background from "@assets/59dfb3fc-cf2e-4f27-a14f-815070a6fffb_17725372014
 import { motion } from "framer-motion";
 
 export default function Login() {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [remember, setRemember] = useState(false);
+  const [username, setUsername] = useState("Manoel11");
+  const [password, setPassword] = useState("1515");
+  const [remember, setRemember] = useState(true);
   
   const login = useLogin();
+
+  useEffect(() => {
+    // Auto-login for demonstration if needed, or just keep values pre-filled
+  }, []);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();

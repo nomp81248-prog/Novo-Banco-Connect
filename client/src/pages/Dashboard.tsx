@@ -92,7 +92,9 @@ export default function Dashboard() {
   const ads = [
     "VOTRE EXPERTISE Un accompagnement sur mesure pour vos projets 2026",
     "Découvrez nos nouveaux placements éco-responsables",
-    "Gérez vos finances en toute simplicité avec notre interface intuitive"
+    "Gérez vos finances en toute simplicité avec notre interface intuitive",
+    "NOVO BANCO : La banque qui vous accompagne partout",
+    "Profitez de nos offres exclusives sur les nouveaux comptes"
   ];
   const [currentAd, setCurrentAd] = useState(0);
 
