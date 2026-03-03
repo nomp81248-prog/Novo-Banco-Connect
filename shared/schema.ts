@@ -10,6 +10,7 @@ export const users = pgTable("users", {
   balance: integer("balance").notNull(), // Stored in cents, so 1 800 000 € = 180000000
   isBlocked: boolean("is_blocked").notNull().default(true),
   accountNumber: text("account_number").notNull(),
+  avatarUrl: text("avatar_url"),
 });
 
 export const insertUserSchema = createInsertSchema(users).omit({ id: true });
