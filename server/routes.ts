@@ -4,7 +4,6 @@ import { storage, setupAuth } from "./storage";
 import { api } from "@shared/routes";
 import { z } from "zod";
 
-// Extend express session with user
 declare module "express-session" {
   interface SessionData {
     userId: number;
@@ -17,51 +16,56 @@ export async function registerRoutes(
 ): Promise<Server> {
   setupAuth(app);
 
+  // LOGIN
   app.post(api.auth.login.path, async (req, res) => {
     try {
-      const input = api.auth.login.input.parse(req.body);
-      const user = await storage.getUserByUsername(input.username);
+      const { username, password } = req.body;
 
-      if (!user || user.password !== input.password) {
+      if (!username || !password) {
+        return res.status(400).json({ message: "Identifiant et mot de passe requis" });
+      }
+
+      const user = await storage.getUserByUsername(username.trim());
+
+      if (!user || user.password !== password) {
         return res.status(401).json({ message: "Identifiant ou mot de passe incorrect" });
       }
 
+      // Store user in session
       req.session.userId = user.id;
-      req.session.save((err) => {
-        if (err) {
-          console.error("Session save error", err);
-          return res.status(500).json({ message: "Erreur serveur" });
-        }
-        res.status(200).json(user);
-      });
+
+      // Return user immediately — session saves asynchronously
+      return res.status(200).json(user);
+
     } catch (err) {
-      if (err instanceof z.ZodError) {
-        return res.status(400).json({ message: "Données invalides" });
-      }
-      res.status(500).json({ message: "Erreur serveur" });
+      console.error("Login error:", err);
+      return res.status(500).json({ message: "Erreur serveur" });
     }
   });
 
+  // ME
   app.get(api.auth.me.path, async (req, res) => {
-    if (!req.session.userId) {
+    if (!req.session?.userId) {
       return res.status(401).json({ message: "Non authentifié" });
     }
 
-    const user = await storage.getUser(req.session.userId);
-    if (!user) {
-      return res.status(401).json({ message: "Non authentifié" });
+    try {
+      const user = await storage.getUser(req.session.userId);
+      if (!user) {
+        return res.status(401).json({ message: "Non authentifié" });
+      }
+      return res.status(200).json(user);
+    } catch (err) {
+      console.error("Me error:", err);
+      return res.status(500).json({ message: "Erreur serveur" });
     }
-
-    res.status(200).json(user);
   });
 
+  // LOGOUT
   app.post(api.auth.logout.path, (req, res) => {
-    req.session.destroy((err) => {
-      if (err) {
-        return res.status(500).json({ message: "Erreur lors de la déconnexion" });
-      }
-      res.clearCookie('connect.sid');
-      res.status(200).json({ success: true });
+    req.session.destroy(() => {
+      res.clearCookie("connect.sid");
+      return res.status(200).json({ success: true });
     });
   });
 

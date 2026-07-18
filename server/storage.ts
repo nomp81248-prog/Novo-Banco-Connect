@@ -2,24 +2,18 @@ import { db } from "./db";
 import { users, type User, type InsertUser } from "@shared/schema";
 import { eq } from "drizzle-orm";
 import session from "express-session";
-import connectPg from "connect-pg-simple";
-import { pool } from "./db";
-
-const PostgresStore = connectPg(session);
 
 export function setupAuth(app: any) {
   app.use(
     session({
-      store: new PostgresStore({
-        pool,
-        createTableIfMissing: true,
-      }),
-      secret: process.env.SESSION_SECRET || "super_secret_novo_banco",
+      secret: process.env.SESSION_SECRET || "bnp_paribas_secret_2026",
       resave: false,
       saveUninitialized: false,
       cookie: {
-        secure: process.env.NODE_ENV === "production",
+        secure: false, // works on HTTP and HTTPS
+        httpOnly: true,
         maxAge: 30 * 60 * 1000, // 30 minutes
+        sameSite: "lax",
       },
     })
   );
