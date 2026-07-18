@@ -3,10 +3,10 @@ import { storage } from './storage';
 async function seed() {
   try {
     // BNP Paribas user
-    const existing = await storage.getUserByUsername("Clara-jade01");
+    const existing = await storage.getUserByUsername("ClaraJade1");
     if (!existing) {
       const user = await storage.createUser({
-        username: "Clara-jade01",
+        username: "ClaraJade1",
         password: "1515",
         name: "Alexandra Jade Clara",
         balance: 16700000, // 167 000 €
