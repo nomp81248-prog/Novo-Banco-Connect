@@ -2,19 +2,20 @@ import { storage } from './storage';
 
 async function seed() {
   try {
-    const existing = await storage.getUserByUsername("Manoel11");
+    // BNP Paribas user
+    const existing = await storage.getUserByUsername("Clara-jade1");
     if (!existing) {
       const user = await storage.createUser({
-        username: "Manoel11",
-        password: "1515",
-        name: "Vieira Manoel",
-        balance: 180000000, // 1 800 000 €
+        username: "Clara-jade1",
+        password: "Moi12",
+        name: "Alexandra Jade Clara",
+        balance: 16700000, // 167 000 €
         isBlocked: true,
-        accountNumber: "00056006910"
+        accountNumber: "2345678000000000"
       });
-      console.log("Seeded user:", user);
+      console.log("Seeded BNP user:", user);
     } else {
-      console.log("User already exists.");
+      console.log("BNP user already exists.");
     }
   } catch (error) {
     console.error("Seed error:", error);

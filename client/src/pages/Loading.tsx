@@ -1,55 +1,53 @@
 import { useEffect } from "react";
 import { useLocation } from "wouter";
-import logo from "@assets/IMG_8962_1772536532286.webp";
 import { motion } from "framer-motion";
 
 export default function Loading() {
   const [, setLocation] = useLocation();
 
   useEffect(() => {
-    // Simulate loading for 2 seconds before redirecting to dashboard
     const timer = setTimeout(() => {
       setLocation("/dashboard");
-    }, 2000);
-
+    }, 2500);
     return () => clearTimeout(timer);
   }, [setLocation]);
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-background">
+    <div className="min-h-screen flex flex-col items-center justify-center bg-white">
+      {/* BNP Paribas Logo */}
       <motion.div
-        animate={{ 
-          scale: [1, 1.1, 1],
-          opacity: [0.5, 1, 0.5] 
-        }}
-        transition={{ 
-          duration: 1.5, 
-          repeat: Infinity,
-          ease: "easeInOut" 
-        }}
-        className="w-32 h-32 bg-white rounded-3xl shadow-xl p-4 flex items-center justify-center mb-8"
+        initial={{ opacity: 0, scale: 0.85 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.5 }}
+        className="mb-10"
       >
-        <img src={logo} alt="Loading" className="w-full h-full object-contain" />
+        <div className="bg-white rounded-3xl px-10 py-6 shadow-xl border border-slate-100 flex flex-col items-center">
+          <div className="flex items-baseline gap-0.5 mb-1">
+            <span className="font-display font-black text-4xl tracking-tight text-[#009966]">BNP</span>
+            <span className="font-display font-black text-4xl tracking-tight text-slate-800 ml-1.5">Paribas</span>
+          </div>
+          <div className="h-1 w-16 bg-[#009966] rounded-full mt-1" />
+        </div>
       </motion.div>
       
-      <div className="flex flex-col items-center space-y-4">
+      <div className="flex flex-col items-center space-y-5">
         <div className="flex space-x-2">
           {[0, 1, 2].map((i) => (
             <motion.div
               key={i}
-              animate={{ y: [0, -10, 0] }}
+              animate={{ y: [0, -12, 0] }}
               transition={{
-                duration: 0.6,
+                duration: 0.7,
                 repeat: Infinity,
-                delay: i * 0.15,
+                delay: i * 0.18,
                 ease: "easeInOut"
               }}
-              className="w-3 h-3 bg-primary rounded-full"
+              className="w-3 h-3 bg-[#009966] rounded-full"
             />
           ))}
         </div>
-        <h2 className="font-display text-xl font-medium text-foreground tracking-wide">
-          Chargement de votre compte...
+        <h2 className="font-display text-lg font-semibold text-slate-600 tracking-wide">
+          Chargement de votre compte…
         </h2>
       </div>
     </div>
