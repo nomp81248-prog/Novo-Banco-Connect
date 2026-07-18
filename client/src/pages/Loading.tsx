@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useLocation } from "wouter";
 import { motion } from "framer-motion";
+import bnpLogo from "@assets/IMG_9270_1784381157800.png";
 
 export default function Loading() {
   const [, setLocation] = useLocation();
@@ -14,19 +15,18 @@ export default function Loading() {
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-white">
-      {/* BNP Paribas Logo */}
       <motion.div
-        initial={{ opacity: 0, scale: 0.85 }}
+        initial={{ opacity: 0, scale: 0.8 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.5 }}
-        className="mb-10"
+        className="mb-10 flex flex-col items-center gap-4"
       >
-        <div className="bg-white rounded-3xl px-10 py-6 shadow-xl border border-slate-100 flex flex-col items-center">
-          <div className="flex items-baseline gap-0.5 mb-1">
-            <span className="font-display font-black text-4xl tracking-tight text-[#009966]">BNP</span>
-            <span className="font-display font-black text-4xl tracking-tight text-slate-800 ml-1.5">Paribas</span>
-          </div>
-          <div className="h-1 w-16 bg-[#009966] rounded-full mt-1" />
+        <div className="w-24 h-24 rounded-3xl overflow-hidden shadow-2xl shadow-[#009966]/30">
+          <img src={bnpLogo} alt="BNP Paribas" className="w-full h-full object-cover" />
+        </div>
+        <div className="flex items-baseline gap-1">
+          <span className="font-display font-black text-3xl text-[#009966]">BNP</span>
+          <span className="font-display font-black text-3xl text-slate-800 ml-1">Paribas</span>
         </div>
       </motion.div>
       
@@ -36,19 +36,14 @@ export default function Loading() {
             <motion.div
               key={i}
               animate={{ y: [0, -12, 0] }}
-              transition={{
-                duration: 0.7,
-                repeat: Infinity,
-                delay: i * 0.18,
-                ease: "easeInOut"
-              }}
+              transition={{ duration: 0.7, repeat: Infinity, delay: i * 0.18, ease: "easeInOut" }}
               className="w-3 h-3 bg-[#009966] rounded-full"
             />
           ))}
         </div>
-        <h2 className="font-display text-lg font-semibold text-slate-600 tracking-wide">
+        <p className="font-display text-lg font-semibold text-slate-500 tracking-wide">
           Chargement de votre compte…
-        </h2>
+        </p>
       </div>
     </div>
   );

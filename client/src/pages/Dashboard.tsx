@@ -20,26 +20,22 @@ import {
   Instagram,
   Twitter,
   Youtube,
-  Menu,
-  AlertTriangle,
-  TrendingUp
+  TrendingUp,
+  Star
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
-import { useToast } from "@/hooks/use-toast";
-import womanAvatar from "@assets/59dfb3fc-cf2e-4f27-a14f-815070a6fffb_1772537201421.jpeg";
+import bnpLogo from "@assets/IMG_9270_1784381157800.png";
 
 export default function Dashboard() {
   const { data: user, isLoading } = useUser();
   const logout = useLogout();
   const [, setLocation] = useLocation();
   const [transferOpen, setTransferOpen] = useState(false);
-  const { toast } = useToast();
   
   const { avatarUrl, setAvatarUrl } = useAppStore();
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  // Redirect if not logged in
   if (!isLoading && !user) {
     setLocation("/login");
     return null;
@@ -49,7 +45,6 @@ export default function Dashboard() {
     return <div className="min-h-screen bg-background" />;
   }
 
-  // BNP Paribas account data
   const accountHolder = "Alexandra Jade Clara";
   const formattedBalance = "167 000 €";
   const accNumber = "2345678000000000";
@@ -65,10 +60,7 @@ export default function Dashboard() {
 
   const containerVariants = {
     hidden: { opacity: 0 },
-    show: {
-      opacity: 1,
-      transition: { staggerChildren: 0.08 }
-    }
+    show: { opacity: 1, transition: { staggerChildren: 0.08 } }
   };
 
   const itemVariants = {
@@ -80,7 +72,7 @@ export default function Dashboard() {
     "🏦 BNP Paribas — La banque d'un monde qui change",
     "📈 Investissez avec confiance grâce à nos conseillers experts",
     "💳 Découvrez nos offres exclusives sur les nouveaux comptes 2026",
-    "🌍 BNP Paribas : votre partenaire financier en France et à l'international",
+    "🌍 Votre partenaire financier en France et à l'international",
     "🔒 Sécurité renforcée — Votre argent protégé 24h/24",
     "💡 Gérez votre patrimoine facilement depuis votre espace personnel"
   ];
@@ -97,38 +89,83 @@ export default function Dashboard() {
     <div className="min-h-screen bg-[#f4f8f6] pb-24 md:pb-6">
       <TopBar />
       
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6">
         <motion.div 
           variants={containerVariants}
           initial="hidden"
           animate="show"
           className="space-y-6"
         >
-          {/* Virtual scrolling ad banner */}
-          <div className="bg-gradient-to-r from-[#007a52] to-[#009966] text-white py-3 px-6 rounded-2xl shadow-lg relative overflow-hidden">
-            <div className="absolute inset-0 opacity-10" style={{backgroundImage: "repeating-linear-gradient(90deg, transparent, transparent 40px, rgba(255,255,255,0.1) 40px, rgba(255,255,255,0.1) 41px)"}} />
+
+          {/* ── BANNIÈRE VISUELLE PRINCIPALE ── */}
+          <motion.div
+            variants={itemVariants}
+            className="relative rounded-3xl overflow-hidden shadow-2xl shadow-[#009966]/20 min-h-[180px] sm:min-h-[220px] flex items-center"
+            style={{ background: "linear-gradient(135deg, #003d2b 0%, #005C3B 40%, #009966 100%)" }}
+          >
+            {/* Decorative pattern */}
+            <div className="absolute inset-0 opacity-10" style={{
+              backgroundImage: "radial-gradient(circle at 20% 80%, white 1px, transparent 1px), radial-gradient(circle at 80% 20%, white 1px, transparent 1px)",
+              backgroundSize: "40px 40px"
+            }} />
+            <div className="absolute top-[-30%] right-[-5%] w-72 h-72 bg-white/10 rounded-full blur-3xl pointer-events-none" />
+            <div className="absolute bottom-[-20%] left-[-5%] w-48 h-48 bg-black/15 rounded-full blur-2xl pointer-events-none" />
+
+            {/* Logo watermark */}
+            <div className="absolute right-6 bottom-4 opacity-20 w-20 h-20">
+              <img src={bnpLogo} alt="" className="w-full h-full object-contain filter brightness-0 invert" />
+            </div>
+
+            <div className="relative z-10 px-8 py-8 sm:px-12 sm:py-10 max-w-xl">
+              <div className="flex items-center gap-2 mb-4">
+                <div className="w-8 h-8 rounded-lg overflow-hidden border border-white/30">
+                  <img src={bnpLogo} alt="BNP" className="w-full h-full object-cover" />
+                </div>
+                <span className="text-white/70 text-xs font-bold uppercase tracking-[0.2em]">BNP Paribas</span>
+              </div>
+              <h2 className="font-display font-black text-white text-2xl sm:text-3xl leading-tight tracking-tight mb-2">
+                VOTRE EXPERTISE
+              </h2>
+              <p className="text-white/85 text-sm sm:text-base font-medium leading-relaxed">
+                Un accompagnement sur mesure<br />pour vos projets 2026
+              </p>
+              <div className="flex gap-2 mt-5">
+                <div className="flex items-center gap-1.5 bg-white/15 border border-white/20 rounded-full px-3 py-1">
+                  <Star className="w-3 h-3 text-yellow-300 fill-yellow-300" />
+                  <span className="text-white text-[11px] font-bold">Service Premium</span>
+                </div>
+                <div className="flex items-center gap-1.5 bg-white/15 border border-white/20 rounded-full px-3 py-1">
+                  <ShieldCheck className="w-3 h-3 text-white" />
+                  <span className="text-white text-[11px] font-bold">100% Sécurisé</span>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* ── DÉFILANT PUBLICITAIRE ── */}
+          <div className="bg-gradient-to-r from-[#007a52] to-[#009966] text-white py-2.5 px-5 rounded-xl shadow-md relative overflow-hidden">
+            <div className="absolute inset-0 opacity-8" style={{backgroundImage: "repeating-linear-gradient(90deg, transparent, transparent 50px, rgba(255,255,255,0.08) 50px, rgba(255,255,255,0.08) 51px)"}} />
             <AnimatePresence mode="wait">
-              <motion.div
+              <motion.p
                 key={currentAd}
-                initial={{ y: 16, opacity: 0 }}
+                initial={{ y: 12, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
-                exit={{ y: -16, opacity: 0 }}
-                transition={{ duration: 0.4 }}
-                className="flex items-center justify-center gap-3 text-center"
+                exit={{ y: -12, opacity: 0 }}
+                transition={{ duration: 0.35 }}
+                className="text-center font-medium text-sm tracking-wide"
               >
-                <p className="font-semibold tracking-wide text-sm sm:text-base">{ads[currentAd]}</p>
-              </motion.div>
+                {ads[currentAd]}
+              </motion.p>
             </AnimatePresence>
           </div>
 
-          {/* Account Header & Balance */}
+          {/* ── SOLDE & STATUT ── */}
           <motion.div variants={itemVariants} className="bg-white rounded-[2rem] p-6 sm:p-8 shadow-xl shadow-black/5 border border-white relative overflow-hidden">
             <div className="absolute right-0 top-0 w-72 h-72 bg-[#009966]/5 rounded-full blur-[80px] -translate-y-1/2 translate-x-1/3 pointer-events-none" />
-            
             <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 relative z-10">
               <div className="space-y-2">
                 <p className="text-xs font-bold text-slate-400 uppercase tracking-[0.2em]">Solde disponible</p>
-                <div className="flex flex-wrap items-center gap-4">
+                <div className="flex flex-wrap items-center gap-3">
                   <h2 className="text-4xl sm:text-5xl font-display font-bold text-slate-900 tracking-tight">
                     {formattedBalance}
                   </h2>
@@ -137,34 +174,38 @@ export default function Dashboard() {
                     {accountStatus}
                   </div>
                 </div>
-                <p className="text-sm text-slate-500 font-medium">{accountHolder} &nbsp;·&nbsp; Titulaire F</p>
+                <p className="text-sm text-slate-500 font-medium">{accountHolder} &nbsp;·&nbsp; Titulaire (F)</p>
+              </div>
+              {/* BNP logo mini */}
+              <div className="shrink-0 w-12 h-12 rounded-xl overflow-hidden shadow-md opacity-70">
+                <img src={bnpLogo} alt="BNP" className="w-full h-full object-cover" />
               </div>
             </div>
           </motion.div>
 
-          {/* Second ad — static banner */}
+          {/* ── MARKETING BLOCS ── */}
           <motion.div variants={itemVariants} className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div className="bg-white border border-[#009966]/20 rounded-2xl p-4 flex items-center gap-4 shadow-sm hover-elevate cursor-pointer">
-              <div className="w-12 h-12 rounded-xl bg-[#009966]/10 flex items-center justify-center">
+            <div className="bg-white border border-[#009966]/15 rounded-2xl p-4 flex items-center gap-4 shadow-sm hover-elevate cursor-pointer">
+              <div className="w-11 h-11 rounded-xl bg-[#009966]/10 flex items-center justify-center shrink-0">
                 <ShieldCheck className="w-6 h-6 text-[#009966]" />
               </div>
               <div>
                 <h5 className="font-bold text-slate-900 text-sm">Sécurité renforcée</h5>
-                <p className="text-xs text-slate-500">Chiffrement de bout en bout</p>
+                <p className="text-xs text-slate-500">Chiffrement de bout en bout pour vos données</p>
               </div>
             </div>
-            <div className="bg-white border border-[#009966]/20 rounded-2xl p-4 flex items-center gap-4 shadow-sm hover-elevate cursor-pointer">
-              <div className="w-12 h-12 rounded-xl bg-[#009966]/10 flex items-center justify-center">
+            <div className="bg-white border border-[#009966]/15 rounded-2xl p-4 flex items-center gap-4 shadow-sm hover-elevate cursor-pointer">
+              <div className="w-11 h-11 rounded-xl bg-[#009966]/10 flex items-center justify-center shrink-0">
                 <TrendingUp className="w-6 h-6 text-[#009966]" />
               </div>
               <div>
                 <h5 className="font-bold text-slate-900 text-sm">Interface intuitive</h5>
-                <p className="text-xs text-slate-500">Expérience bancaire moderne</p>
+                <p className="text-xs text-slate-500">Une expérience bancaire fluide et moderne</p>
               </div>
             </div>
           </motion.div>
 
-          {/* Main Grid - 6 sections */}
+          {/* ── 6 SECTIONS ── */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             
             {/* 1. Comptes & Cartes */}
@@ -175,9 +216,9 @@ export default function Dashboard() {
               <div className="hover-elevate cursor-pointer">
                 <VisaCard accountNumber={accNumber} accountName={accountHolder} />
               </div>
-              <div className="bg-white rounded-2xl p-4 border border-slate-100 shadow-sm text-sm">
+              <div className="bg-white rounded-2xl p-4 border border-slate-100 shadow-sm">
                 <p className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">N° de compte</p>
-                <p className="font-mono font-bold text-slate-700">2345 6780 0000 0000</p>
+                <p className="font-mono font-bold text-slate-700 text-sm">2345 6780 0000 0000</p>
               </div>
             </motion.div>
 
@@ -187,18 +228,20 @@ export default function Dashboard() {
                 <PiggyBank className="w-5 h-5 text-[#009966]" /> Épargne & Placements
               </h3>
               <div className="bg-white rounded-3xl p-6 shadow-xl shadow-black/5 border border-white flex-1 hover:border-[#009966]/30 transition-colors group">
-                <div className="h-full flex flex-col justify-center">
-                  <p className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">Solde principal</p>
-                  <p className="text-3xl font-bold text-slate-900 group-hover:text-[#009966] transition-colors">167 000 €</p>
-                  <div className="mt-5 space-y-3">
-                    <div className="flex justify-between text-sm">
-                      <span className="text-slate-500">Épargne</span>
+                <p className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">Total placements</p>
+                <p className="text-3xl font-bold text-slate-900 group-hover:text-[#009966] transition-colors mb-5">167 000 €</p>
+                <div className="space-y-3">
+                  <div>
+                    <div className="flex justify-between text-sm mb-1">
+                      <span className="text-slate-500">Solde principal</span>
                       <span className="font-bold text-slate-700">167 000 €</span>
                     </div>
                     <div className="h-2 bg-slate-100 rounded-full overflow-hidden">
                       <div className="h-full bg-[#009966] w-full rounded-full" />
                     </div>
-                    <div className="flex justify-between text-sm">
+                  </div>
+                  <div>
+                    <div className="flex justify-between text-sm mb-1">
                       <span className="text-slate-500">Investissements</span>
                       <span className="font-bold text-slate-700">0,00 €</span>
                     </div>
@@ -221,12 +264,12 @@ export default function Dashboard() {
                 </div>
                 <div>
                   <h4 className="font-bold text-slate-900 text-lg">Effectuer un virement</h4>
-                  <p className="text-sm text-slate-500 mt-1 max-w-[200px]">Transférez vos fonds de manière sécurisée.</p>
+                  <p className="text-sm text-slate-500 mt-1">Transférez vos fonds de manière sécurisée.</p>
                 </div>
                 <Button 
                   onClick={() => setTransferOpen(true)}
                   data-testid="button-new-transfer"
-                  className="w-full h-12 rounded-xl bg-[#009966] hover:bg-[#007a52] text-white shadow-lg shadow-[#009966]/20 font-bold"
+                  className="w-full h-12 rounded-xl bg-[#009966] hover:bg-[#007a52] text-white shadow-lg font-bold"
                 >
                   Nouveau Virement
                 </Button>
@@ -239,7 +282,7 @@ export default function Dashboard() {
                 <Landmark className="w-5 h-5 text-[#009966]" /> Crédits & Prêts
               </h3>
               <div className="bg-white rounded-3xl p-6 shadow-xl shadow-black/5 border border-white flex-1">
-                <div className="h-full flex items-center gap-4">
+                <div className="flex items-center gap-4">
                   <div className="w-14 h-14 rounded-2xl bg-slate-50 flex items-center justify-center text-slate-400">
                     <Landmark className="w-7 h-7" />
                   </div>
@@ -284,15 +327,13 @@ export default function Dashboard() {
                 <UserCircle className="w-5 h-5 text-[#009966]" /> Profil & Paramètres
               </h3>
               <div className="bg-white rounded-3xl p-6 shadow-xl shadow-black/5 border border-white flex-1 flex flex-col justify-between">
-                <div className="flex items-center gap-5 mb-6">
+                <div className="flex items-center gap-4 mb-6">
                   <div className="relative group">
-                    <div className="w-20 h-20 rounded-2xl bg-slate-100 border-2 border-white shadow-lg overflow-hidden flex items-center justify-center relative">
+                    <div className="w-20 h-20 rounded-2xl border-2 border-white shadow-lg overflow-hidden flex items-center justify-center relative bg-[#009966]/10">
                       {avatarUrl ? (
                         <img src={avatarUrl} alt="Avatar" className="w-full h-full object-cover" />
                       ) : (
-                        <div className="w-full h-full bg-[#009966]/10 flex items-center justify-center">
-                          <span className="font-display font-black text-2xl text-[#009966]">AJ</span>
-                        </div>
+                        <span className="font-display font-black text-2xl text-[#009966]">AJ</span>
                       )}
                       <div 
                         className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer"
@@ -315,7 +356,6 @@ export default function Dashboard() {
                     <p className="text-xs text-slate-500 mt-0.5">Sexe : F</p>
                   </div>
                 </div>
-
                 <Button 
                   variant="outline" 
                   data-testid="button-logout"
@@ -331,18 +371,33 @@ export default function Dashboard() {
 
           </div>
 
-          {/* Footer */}
-          <motion.div variants={itemVariants} className="pt-4 pb-4 border-t border-slate-200">
-            <div className="flex flex-col items-center justify-center text-center space-y-5 py-4">
-              <div className="flex items-baseline gap-0.5">
-                <span className="font-display font-black text-xl text-[#009966]">BNP</span>
-                <span className="font-display font-black text-xl text-slate-800 ml-1">Paribas</span>
+          {/* ── FOOTER ── */}
+          <motion.div variants={itemVariants} className="pt-4 pb-2 border-t border-slate-200">
+            <div className="flex flex-col items-center gap-5 py-4">
+              {/* Logo + nom */}
+              <div className="flex items-center gap-3">
+                <div className="w-8 h-8 rounded-lg overflow-hidden">
+                  <img src={bnpLogo} alt="BNP" className="w-full h-full object-cover" />
+                </div>
+                <div className="flex items-baseline gap-0.5">
+                  <span className="font-display font-black text-lg text-[#009966]">BNP</span>
+                  <span className="font-display font-black text-lg text-slate-800 ml-0.5">Paribas</span>
+                </div>
               </div>
-              <div className="flex gap-6">
-                <Facebook className="w-5 h-5 text-slate-400 hover:text-[#1877F2] cursor-pointer transition-colors" />
-                <Instagram className="w-5 h-5 text-slate-400 hover:text-[#E4405F] cursor-pointer transition-colors" />
-                <Twitter className="w-5 h-5 text-slate-400 hover:text-[#1DA1F2] cursor-pointer transition-colors" />
-                <Youtube className="w-5 h-5 text-slate-400 hover:text-[#FF0000] cursor-pointer transition-colors" />
+              {/* Réseaux sociaux */}
+              <div className="flex gap-5">
+                <a href="https://facebook.com/bnpparibas" target="_blank" rel="noopener noreferrer">
+                  <Facebook className="w-5 h-5 text-slate-400 hover:text-[#1877F2] cursor-pointer transition-colors" />
+                </a>
+                <a href="https://instagram.com/bnpparibas" target="_blank" rel="noopener noreferrer">
+                  <Instagram className="w-5 h-5 text-slate-400 hover:text-[#E4405F] cursor-pointer transition-colors" />
+                </a>
+                <a href="https://twitter.com/bnpparibas" target="_blank" rel="noopener noreferrer">
+                  <Twitter className="w-5 h-5 text-slate-400 hover:text-[#1DA1F2] cursor-pointer transition-colors" />
+                </a>
+                <a href="https://youtube.com/@bnpparibas" target="_blank" rel="noopener noreferrer">
+                  <Youtube className="w-5 h-5 text-slate-400 hover:text-[#FF0000] cursor-pointer transition-colors" />
+                </a>
               </div>
               <p className="text-[10px] text-slate-400 font-bold uppercase tracking-[0.25em]">
                 © 2026 BNP Paribas — Tous droits réservés
