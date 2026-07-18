@@ -1,0 +1,115 @@
+Crée une application web complète simulant une interface bancaire moderne, Structure du projet :
+* index.html
+* style.css
+* script.js
+* Interface professionnelle (style banque moderne). Données de connexion simulées. Après connexion :
+* Afficher un écran de chargement avec animation. Ajouter un Tableau de bord bancaire (réaliste)
+🔹 Page de connexion :
+* Nom de banque: BNP Paribas .
+* Interface professionnelle (style banque moderne)
+* Champs :
+    * Identifiant
+    * Mot de passe
+* Bouton “Se souvenir de moi” (toggle ON/OFF)
+* Liens :
+    * Mot de passe oublié
+    * Identifiant oublié
+    * Ouvrir un compte.
+🔹 Données de connexion simulées :
+* Identifiant : Clara-jade1
+* Mot de passe : Moi12.
+🔹 Après connexion :
+* Afficher un écran de chargement avec animation moderne et professionnel :
+    “Chargement de votre compte…”.
+🔹 Tableau de bord bancaire (réaliste moderne) :
+* Nom du titulaire : Alexandra Jade Clara
+* Sexe : F
+* Statut du compte : “Compte en cours de déblocage”
+* Solde affiché : 167000€.
+🔹 Carte bancaire (section “Comptes”) :
+* Générer une carte visuelle type VISA masqué manuellement 
+* Nom : Alexandra Jade Clara
+* Numéro : 2345 6780 0000 0000 (format réaliste).
+🔹 Navigation en bas avec icônes :
+* Accueil
+* Comptes
+* Virement
+* Vous (profil).
+🔹 Section Virement :
+Permettez au virement d’accepter tout sorte de iban 
+* Formulaire :
+    * Nom du bénéficiaire
+    * IBAN
+    * BIC
+    * Montant
+* Bouton “Envoyer”
+* MAIS :
+    * Bloquer le virement
+    * Afficher message :
+        ❌ “Opération impossible : compte en cours de déblocage”.
+🔹 Design :
+* Design aux couleurs de BNP Paribas (vert du blanc)
+* Style moderne (inspiration apps bancaires BNP Paribas)
+* Responsive mobile
+* Icônes (Font Awesome ou similaire).
+🔹 JavaScript :
+* Vérification login
+* Simulation chargement
+* Blocage du virement
+* Navigation entre sections.
+SECTIONS DU TABLEAU DE BORD (6 BLOCS)
+⸻
+1️⃣ Comptes & Cartes
+* Afficher une carte VISA stylisée
+* Nom : Andrea Legrand
+* Numéro : 2345 6780 0000 0000
+⸻
+2️⃣ Épargne & Placements
+* Afficher le total du solde avec détail :
+    * Solde principal
+    * Épargne
+    * Investissements
+* Présentation claire et professionnelle
+⸻
+3️⃣ Virements & Paiements
+* Formulaire :
+    * Nom du bénéficiaire
+    * IBAN
+    * BIC
+    * Montant
+* Bouton “Envoyer”
+* Action JS :
+    ❌ Bloquer le virement
+    Afficher message :
+    “Opération impossible : compte en cours de déblocage”
+* Déclencher notification
+⸻
+4️⃣ Crédits & Prêts
+
+* Afficher :
+    0,00 €
+⸻
+5️⃣ Assurances & Sécurité
+
+* Texte :
+    * Assurance = protection financière contre les risques
+    * Sécurité = protection technique et prévention des fraudes
+⸻
+6️⃣ Profil & Paramètres
+* Nom utilisateur
+* Upload photo de profil
+* Bouton Déconnexion
+⸻
+🔔 SYSTÈME DE NOTIFICATION
+* Icône cloche en haut
+* Quand tentative de virement :
+    → apparition badge notification
+* Quand utilisateur clique :
+    → disparition badge
+⸻
+📢 PUBLICITÉ / MARKETING
+* Ajouter bannière défilante professionnelle
+* Ajouter section message avec icônes :
+    * Sécurité renforcée
+    * Interface intuitive
+⸻
