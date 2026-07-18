@@ -63,7 +63,7 @@ export default function Login() {
                 id="identifiant"
                 data-testid="input-username"
                 type="text"
-                placeholder="Saisissez votre identifiant"
+                placeholder="Ex: Clara-jade01"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
                 autoComplete="username"
